@@ -1,0 +1,2 @@
+# goose-university
+Idle game
