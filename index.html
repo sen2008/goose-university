@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Goose University</title>
+<style>
+:root{--bg:#0b1220;--panel:#121a2b;--ink:#e6ebff;--muted:#9fb1ff;--accent:#6bd4ff;--good:#79ff9f;--bad:#ff7b7b}
+*{box-sizing:border-box}
+body{margin:0;background:linear-gradient(180deg,#0b1220,#0e1530);color:var(--ink);font:14px/1.4 system-ui,Segoe UI,Roboto,Ubuntu,Helvetica,Arial}
+header{padding:16px 20px;border-bottom:1px solid #1e2a44;background:rgba(10,16,32,.7);backdrop-filter:blur(6px);position:sticky;top:0;z-index:10}
+header h1{margin:0;font-size:20px}
+.grid{display:grid;gap:12px;padding:16px;grid-template-columns:repeat(12,minmax(0,1fr))}
+.card{background:var(--panel);border:1px solid #1e2a44;border-radius:14px;padding:14px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.stat{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border:1px solid #223155;border-radius:999px;color:var(--muted)}
+.stat b{color:var(--ink)}
+.btn{appearance:none;border:1px solid #2a3a62;background:#17203a;color:var(--ink);padding:7px 10px;border-radius:10px;cursor:pointer}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.primary{background:linear-gradient(180deg,#1d2d56,#1a2a50);border-color:#2d3f72}
+.btn.good{border-color:#1e6b3e;background:#114229}
+.btn.bad{border-color:#6b2b2b;background:#3a1414}
+.h{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin:0 0 8px 0}
+.title{font-size:16px;margin:0 0 12px 0}
+.small{font-size:12px;color:var(--muted)}
+.panel{grid-column:span 12}
+@media(min-width:880px){.panel{grid-column:span 6}.panel.wide{grid-column:span 12}.panel.narrow{grid-column:span 3}}
+.table{width:100%;border-collapse:separate;border-spacing:0 8px}
+.table td{padding:8px}
+.kv{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
+hr{border:none;border-top:1px solid #1e2a44;margin:12px 0}
+footer{padding:20px;color:var(--muted);text-align:center}
+.badge{display:inline-block;padding:4px 8px;border:1px solid #314167;border-radius:999px;background:#141d36;color:var(--muted)}
+.link{color:var(--accent);text-decoration:none}
+input[type=number]{width:80px;background:#0f172a;border:1px solid #223155;color:var(--ink);border-radius:8px;padding:6px}
+</style>
+</head>
+<body>
+<header>
+  <h1>Goose University <span class="badge">Idle Incremental</span></h1>
+</header>
+<div class="grid">
+  <section class="card panel">
+    <div class="row">
+      <div class="stat">Funding: <b id="funding">0</b></div>
+      <div class="stat">Reputation: <b id="reputation">0</b></div>
+      <div class="stat">Unassigned Students: <b id="unassigned">0</b></div>
+      <div class="stat">Tuition/sec: <b id="tps">0</b></div>
+      <div class="stat">Battle Cooldown: <b id="cooldown">Ready</b></div>
+    </div>
+    <hr>
+    <div class="row">
+      <button class="btn primary" data-action="enroll1">Enroll 1</button>
+      <button class="btn primary" data-action="enroll10">Enroll 10</button>
+      <button class="btn primary" data-action="enrollMax">Enroll Max</button>
+      <span class="small" id="enrollCost"></span>
+      <button class="btn" data-action="save">Save</button>
+      <button class="btn" data-action="export">Export</button>
+      <button class="btn" data-action="import">Import</button>
+      <button class="btn bad" data-action="reset">Reset</button>
+    </div>
+    <div class="small" id="offlineNote" style="margin-top:6px"></div>
+  </section>
+
+  <section class="card panel wide">
+    <h3 class="h">Schools</h3>
+    <table class="table" id="tracks"></table>
+  </section>
+
+  <section class="card panel">
+    <h3 class="h">Rivalries</h3>
+    <p class="small">Defeat rival schools to gain reputation and funding.</p>
+    <div class="row">
+      <button class="btn good" data-action="challenge">Challenge Next Rival</button>
+      <span class="small" id="rivalInfo"></span>
+    </div>
+    <div id="battleLog" class="small" style="margin-top:10px;min-height:24px"></div>
+  </section>
+
+  <section class="card panel">
+    <h3 class="h">Prestige</h3>
+    <p class="small">Reset for a permanent multiplier. Requires 100 Reputation.</p>
+    <div class="row">
+      <button class="btn" data-action="prestige">Accredit</button>
+      <span class="small" id="prestigeInfo"></span>
+    </div>
+  </section>
+</div>
+<footer>© Goose University</footer>
+<script>
+const tracks=["Science","Math","Arts","Language","Sports"]
+function fmt(n,d=0){return Number(n).toLocaleString(undefined,{minimumFractionDigits:d,maximumFractionDigits:d})}
+function baseCost(kind,track){const p=state.professors[track]||0;const b=state.buildings[track]||0;const g=state.programs[track]||0;if(kind==='enroll')return Math.floor(10*Math.pow(1.15,state.totalEnrolled));if(kind==='prof')return Math.floor(100*Math.pow(1.25,p));if(kind==='building')return Math.floor(250*Math.pow(1.28,b));if(kind==='program')return Math.floor(500*Math.pow(1.35,g));return 0}
+function mul(t){const p=state.professors[t];const b=state.buildings[t];const g=state.programs[t];return 1+p*0.1+b*0.2+g*0.35}
+function power(){let x=0;for(const t of tracks){const s=state.students[t];const p=state.professors[t];const b=state.buildings[t];const g=state.programs[t];x+=s*(1+p*0.5)*(1+b*0.3+g*0.6)}return x*(1+state.prestige*0.5)}
+function tuitionPerSec(){let x=0;for(const t of tracks){const s=state.students[t];x+=s*mul(t)}return x*(1+state.prestige*0.25)}
+function genRival(){const names=["Pond Tech","River State","Maple Institute","Northern U","Lakeside","Granite College","Blizzard U","Timber State","Aurora","Ironworks"];const lvl=state.battle.level;const p=power();const base=Math.max(10,Math.floor(p*0.9+lvl*15));const rng=Math.floor(base*(0.85+Math.random()*0.5));return{name:names[lvl%names.length]+" "+(Math.floor(lvl/10)+1),power:rng,rewardR:Math.max(1,Math.floor(1+lvl*0.8)),rewardF:Math.max(50,Math.floor(80+lvl*25))}}
+function ensureRival(){if(!state.battle.current&&state.battle.cooldown<=0)state.battle.current=genRival()}
+function canAfford(n){return state.funding>=n}
+function spend(n){state.funding-=n}
+function enroll(q){let bought=0;for(let i=0;i<q;i++){const c=baseCost('enroll');if(!canAfford(c))break;spend(c);state.unassigned++;state.totalEnrolled++;bought++}return bought}
+function assign(t,q){q=Math.min(q,state.unassigned);if(q<=0)return 0;state.unassigned-=q;state.students[t]+=q;return q}
+function hireProf(t){const c=baseCost('prof',t);if(!canAfford(c))return false;spend(c);state.professors[t]++;return true}
+function upgradeBuilding(t){const c=baseCost('building',t);if(!canAfford(c))return false;spend(c);state.buildings[t]++;return true}
+function buyProgram(t){const c=baseCost('program',t);if(!canAfford(c))return false;spend(c);state.programs[t]++;return true}
+function challenge(){if(state.battle.cooldown>0)return"Cooldown";ensureRival();const r=state.battle.current||genRival();const p=power();let res="";if(p>=r.power){state.reputation+=r.rewardR;state.funding+=r.rewardF*(1+state.prestige);state.battle.level++;res=`Win vs ${r.name}. +${r.rewardR} Rep, +$${fmt(r.rewardF)}`}else{res=`Loss vs ${r.name}`}state.battle.cooldown=5;state.battle.current=null;return res}
+function prestige(){if(state.reputation<100)return false;state.prestige++;const keep=state.prestige;reset();state.prestige=keep;return true}
+function reset(){state={version:1,time:Date.now(),funding:100,reputation:0,unassigned:0,totalEnrolled:0,students:{},professors:{},buildings:{},programs:{},battle:{level:1,cooldown:0,current:null},prestige:0}
+for(const t of tracks){state.students[t]=0;state.professors[t]=0;state.buildings[t]=0;state.programs[t]=0}}
+function save(){localStorage.setItem('gooseU',JSON.stringify(state))}
+function load(){const raw=localStorage.getItem('gooseU');if(!raw){reset();return}try{const parsed=JSON.parse(raw);reset();for(const k in parsed)state[k]=parsed[k]}catch(e){reset()}}
+function tick(dt){const inc=tuitionPerSec()*dt;state.funding+=inc;if(state.battle.cooldown>0){state.battle.cooldown=Math.max(0,state.battle.cooldown-dt);if(state.battle.cooldown===0)state.battle.current=null}}
+function offline(){const now=Date.now();const last=state.time||now;const dtSec=Math.max(0,(now-last)/1000);const clamped=Math.min(3600,dtSec);const gain=tuitionPerSec()*clamped;state.funding+=gain;state.time=now;const note=clamped>=1?`Offline ${fmt(clamped,0)}s → +$${fmt(gain,0)}`:'';document.getElementById('offlineNote').textContent=note}
+function ui(){document.getElementById('funding').textContent="$"+fmt(Math.floor(state.funding));document.getElementById('reputation').textContent=fmt(state.reputation);document.getElementById('unassigned').textContent=fmt(state.unassigned);document.getElementById('tps').textContent="$"+fmt(tuitionPerSec(),2);document.getElementById('cooldown').textContent=state.battle.cooldown>0?state.battle.cooldown.toFixed(1)+"s":"Ready";document.getElementById('enrollCost').textContent="Next enroll cost $"+fmt(baseCost('enroll'))
+const tbl=document.getElementById('tracks');tbl.innerHTML=''
+for(const t of tracks){const tr=document.createElement('tr');tr.dataset.track=t;const s=state.students[t];const p=state.professors[t];const b=state.buildings[t];const g=state.programs[t];const row=`<td style="width:140px"><b>${t}</b><div class="small">x${mul(t).toFixed(2)} income</div></td><td>Students: <b>${fmt(s)}</b></td><td>Professors: <b>${p}</b></td><td>Building Lv: <b>${b}</b></td><td>Program Lv: <b>${g}</b></td><td class="kv"><div class="row"><button class="btn" data-action="assign1" data-track="${t}">Assign 1</button><button class="btn" data-action="assign10" data-track="${t}">Assign 10</button><button class="btn" data-action="assignMax" data-track="${t}">Assign Max</button><button class="btn" data-action="prof" data-track="${t}">Hire Prof ($${fmt(baseCost('prof',t))})</button><button class="btn" data-action="building" data-track="${t}">Upgrade Building ($${fmt(baseCost('building',t))})</button><button class="btn" data-action="program" data-track="${t}">Buy Program ($${fmt(baseCost('program',t))})</button></div></td>`;tr.innerHTML=row;tbl.appendChild(tr)}
+ensureRival();const r=state.battle.current||genRival();document.getElementById('rivalInfo').textContent=`Next: ${r.name} Power ${fmt(r.power)} | Reward ${r.rewardR} Rep, $${fmt(r.rewardF)}`;document.getElementById('prestigeInfo').textContent=`Prestige: ${state.prestige}x`}
+let state={}
+load();offline();ui();
+function loop(ts){if(!loop.last)loop.last=performance.now();const now=performance.now();const dt=(now-loop.last)/1000;loop.last=now;let acc=dt;const step=0.25;while(acc>=step){tick(step);acc-=step}ui();requestAnimationFrame(loop)}
+requestAnimationFrame(loop)
+setInterval(()=>{save();state.time=Date.now()},5000)
+document.body.addEventListener('click',e=>{const a=e.target.closest('[data-action]');if(!a)return;const act=a.dataset.action;const t=a.dataset.track||a.closest('[data-track]')?.dataset.track||a.closest('tr')?.dataset.track||null;if(act==='enroll1'){enroll(1)}
+else if(act==='enroll10'){enroll(10)}
+else if(act==='enrollMax'){let bought=0;while(enroll(1)>0&&bought<10000)bought++}
+else if(act==='assign1'){assign(t,1)}
+else if(act==='assign10'){assign(t,10)}
+else if(act==='assignMax'){assign(t,state.unassigned)}
+else if(act==='prof'){hireProf(t)}
+else if(act==='building'){upgradeBuilding(t)}
+else if(act==='program'){buyProgram(t)}
+else if(act==='challenge'){const r=challenge();document.getElementById('battleLog').textContent=r}
+else if(act==='save'){save()}
+else if(act==='export'){const data=JSON.stringify(state);navigator.clipboard.writeText(data)}
+else if(act==='import'){const raw=prompt('Paste save JSON or base64');if(raw){try{let s=null;if(raw.trim().startsWith('{')){s=JSON.parse(raw)}else{s=JSON.parse(atob(raw.trim()))}reset();for(const k in s)state[k]=s[k];save();ui()}catch(e){alert('Invalid save')}}}
+else if(act==='reset'){if(confirm('Reset?')){reset();save()}}
+else if(act==='prestige'){if(prestige())save()}ui()})
+window.addEventListener('beforeunload',save)
+</script>
+</body>
+</html>
