@@ -32,5 +32,5 @@ export default defineConfig({
       }
     })
   ],
-  base: '/GooseUniversity/',
+  base: '/goose-university/',
 })
