@@ -20,6 +20,14 @@ export function loadGame(): GameState {
                 unlocks: parsed.unlocks || {},
                 totalHonksEarned: parsed.totalHonksEarned ?? parsed.honks ?? 0,
                 timePlayedSeconds: parsed.timePlayedSeconds || 0,
+                unlockedCostumes: parsed.unlockedCostumes || ['default'],
+                selectedCostume: parsed.selectedCostume || 'default',
+                reputation: parsed.reputation || 0,
+                battleState: parsed.battleState || { level: 1, cooldown: 0 },
+                goldenFeathers: parsed.goldenFeathers || 0,
+                students: parsed.students || 0,
+                funding: parsed.funding || 0,
+                legacyUpgrades: parsed.legacyUpgrades || {},
             };
 
             // Mission 2 Migration: Convert boolean upgrades to number

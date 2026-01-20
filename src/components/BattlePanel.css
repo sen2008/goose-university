@@ -1,0 +1,313 @@
+.battle-panel {
+    background: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #333;
+    margin-top: 2rem;
+}
+
+.battle-panel h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: #ffd700;
+    /* Gold */
+    text-align: center;
+}
+
+.college-selector {
+    margin-bottom: 1.5rem;
+    background: #2a2a2a;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.selector-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.team-size {
+    background: #444;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    color: #ffd700;
+}
+
+.college-selector h4 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #aaa;
+}
+
+.colleges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.5rem;
+}
+
+.college-option {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    padding: 0.5rem;
+    border-radius: 4px;
+    color: #888;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+.college-option:hover {
+    border-color: #646cff;
+}
+
+.college-option.active {
+    background: #646cff;
+    color: white;
+    border-color: #7b82ff;
+}
+
+.college-option .name {
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.type-badge {
+    font-size: 0.6rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    margin: 0.2rem 0;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.type-badge.aggressive {
+    background: #d32f2f;
+    color: white;
+}
+
+.type-badge.intellectual {
+    background: #1976d2;
+    color: white;
+}
+
+.type-badge.adaptive {
+    background: #388e3c;
+    color: white;
+}
+
+.type-badge.creative {
+    background: #fbc02d;
+    color: black;
+}
+
+.type-badge.balanced {
+    background: #757575;
+    color: white;
+}
+
+.college-option .level {
+    font-size: 0.6rem;
+    margin-top: 0.1rem;
+    opacity: 0.8;
+}
+
+.player-stats {
+    display: flex;
+    justify-content: space-around;
+    background: #2a2a2a;
+    padding: 0.75rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.stat .label {
+    color: #888;
+    font-size: 0.8rem;
+    margin-right: 0.5rem;
+}
+
+.stat .value {
+    font-weight: bold;
+    color: #646cff;
+}
+
+.synergy-label {
+    display: block;
+    font-size: 0.75rem;
+    color: #4caf50;
+    font-weight: bold;
+    margin-top: 0.25rem;
+    animation: flash 2s infinite;
+}
+
+@keyframes flash {
+
+    0%,
+    100% {
+        opacity: 0.7;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.battle-result {
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    animation: fadeIn 0.3s ease-in;
+}
+
+.battle-result.win {
+    background: rgba(76, 175, 80, 0.2);
+    color: #4caf50;
+    border: 1px solid #4caf50;
+}
+
+.battle-result.loss {
+    background: rgba(244, 67, 54, 0.2);
+    color: #f44336;
+    border: 1px solid #f44336;
+}
+
+.rivals-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.rival-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #222;
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #333;
+}
+
+.rival-name {
+    font-weight: bold;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rival-type {
+    font-size: 0.7rem;
+    opacity: 0.7;
+    padding: 0.1rem 0.3rem;
+    border: 1px solid currentColor;
+    border-radius: 3px;
+    text-transform: uppercase;
+}
+
+.rival-type.aggressive {
+    color: #ff5252;
+}
+
+.rival-type.intellectual {
+    color: #448aff;
+}
+
+.rival-type.adaptive {
+    color: #69f0ae;
+}
+
+.rival-type.creative {
+    color: #ffd740;
+}
+
+.rival-type.balanced {
+    color: #e0e0e0;
+}
+
+.rival-card.advantaged {
+    border: 1px solid #4caf50;
+    background: linear-gradient(135deg, #222 0%, #1b3a1b 100%);
+}
+
+.advantage-badge {
+    color: #4caf50;
+    font-size: 0.7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0.25rem 0;
+}
+
+.rival-details {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.battle-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    background: #646cff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    min-width: 80px;
+    transition: background 0.2s;
+}
+
+.battle-btn:hover:not(:disabled) {
+    background: #7b82ff;
+}
+
+.battle-btn:disabled {
+    background: #444;
+    cursor: not-allowed;
+    color: #888;
+}
+
+.current-region-info {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #aaa;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background: rgba(100, 108, 255, 0.1);
+    border-radius: 4px;
+}
+
+.rival-card.boss-card {
+    border: 2px solid #ffd700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+}
+
+.rival-card.conquered {
+    opacity: 0.7;
+    background: #111;
+}
+
+.boss-tag {
+    color: #ffd700;
+    font-weight: bold;
+    margin-right: 0.5rem;
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

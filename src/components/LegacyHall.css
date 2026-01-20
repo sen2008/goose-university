@@ -1,0 +1,192 @@
+.legacy-hall {
+    background: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #333;
+    margin-top: 2rem;
+}
+
+.prestige-section {
+    text-align: center;
+    border-bottom: 1px solid #333;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.prestige-section h3 {
+    color: #ffd700;
+    margin-top: 0;
+}
+
+.prestige-section p {
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.accreditation-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.info-item .label {
+    color: #aaa;
+    margin-right: 0.5rem;
+}
+
+.info-item .value.golden {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.gain-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.gain-text {
+    color: #ffd700;
+    font-weight: bold;
+}
+
+.accredit-btn {
+    background: #ffd700;
+    color: #000;
+    font-weight: bold;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.accredit-btn:hover {
+    transform: scale(1.05);
+}
+
+.requirement-text {
+    font-size: 0.8rem;
+    color: #666;
+    font-style: italic;
+}
+
+.legacy-upgrades h4 {
+    margin-top: 0;
+    color: #aaa;
+    margin-bottom: 1rem;
+}
+
+.upgrade-card.legacy {
+    background: #222;
+    border: 1px solid #444;
+}
+
+.upgrade-card.legacy .upgrade-name {
+    color: #ffd700;
+}
+
+.buy-btn {
+    background: #444;
+    color: #ccc;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.buy-btn:hover:not(:disabled) {
+    background: #ffd700;
+    color: #000;
+}
+
+.buy-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.admin-office {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px dashed #444;
+}
+
+.admin-office h4 {
+    color: #ff4d4d;
+    margin-top: 0;
+}
+
+.admin-office p {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.friction-stats {
+    background: #000;
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 1rem 0;
+    border: 1px solid #222;
+}
+
+.friction-stats .stat {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 0.25rem 0;
+}
+
+.value.danger {
+    color: #ff4d4d;
+    font-weight: bold;
+}
+
+.audit-action {
+    background: linear-gradient(135deg, #1a1a1a, #2a1a1a);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #4d0000;
+}
+
+.audit-action h5 {
+    color: #ff4d4d;
+    margin: 0 0 0.5rem 0;
+}
+
+.audit-desc {
+    font-size: 0.75rem !important;
+    margin-bottom: 1rem;
+}
+
+.audit-btn {
+    width: 100%;
+    background: #4d0000;
+    color: #ff9999;
+    border: 1px solid #ff4d4d;
+    padding: 0.75rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.audit-btn:hover:not(:disabled) {
+    background: #ff4d4d;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+}
+
+.audit-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    border-color: #333;
+}

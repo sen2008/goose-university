@@ -1,5 +1,6 @@
 import React from 'react';
 import { type GameState } from '../game/types';
+import { formatTime, formatNumber } from '../utils/formatting';
 
 interface StatsPanelProps {
     state: GameState;
@@ -7,13 +8,6 @@ interface StatsPanelProps {
 }
 
 export const StatsPanel: React.FC<StatsPanelProps> = ({ state, onClose }) => {
-    const formatTime = (seconds: number) => {
-        const h = Math.floor(seconds / 3600);
-        const m = Math.floor((seconds % 3600) / 60);
-        const s = Math.floor(seconds % 60);
-        return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-    };
-
     const totalUpgrades = Object.values(state.upgrades).reduce((a, b) => a + b, 0);
 
     return (
@@ -23,7 +17,7 @@ export const StatsPanel: React.FC<StatsPanelProps> = ({ state, onClose }) => {
                 <div className="stats-grid">
                     <div className="stat-entry">
                         <span className="label">Total Honks Earned:</span>
-                        <span className="value">{Math.floor(state.totalHonksEarned).toLocaleString()}</span>
+                        <span className="value">{formatNumber(Math.floor(state.totalHonksEarned))}</span>
                     </div>
                     <div className="stat-entry">
                         <span className="label">Time Played:</span>

@@ -24,6 +24,23 @@
   margin-top: 1rem;
 }
 
+.stats-row.secondary {
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 0.5rem;
+  gap: 2rem;
+}
+
+.secondary .stat-value {
+  font-size: 1.2rem;
+}
+
+.stat-item.feather .stat-value {
+  color: #ffd700;
+}
+
 .stat-item {
   display: flex;
   flex-direction: column;
@@ -213,4 +230,92 @@
 .close-btn {
   width: 100%;
   margin-top: 1rem;
+}
+
+/* Mascot */
+.mascot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.mascot-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  outline: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.mascot-button:hover .mascot-image {
+  transform: scale(1.05);
+  filter: brightness(1.1);
+}
+
+.mascot-button:active .mascot-image {
+  transform: scale(0.95);
+}
+
+.mascot-button.pumping .mascot-image {
+  animation: mascot-pump 0.1s ease;
+}
+
+.mascot-image {
+  width: 200px;
+  height: 200px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 20px rgba(100, 108, 255, 0.3));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+@keyframes mascot-pump {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .mascot-image {
+    width: 150px;
+    height: 150px;
+  }
+}
+
+.floating-honk {
+  position: fixed;
+  pointer-events: none;
+  color: #6bd4ff;
+  font-weight: bold;
+  font-size: 1.5rem;
+  z-index: 2000;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  animation: floating-honk-anim 0.8s ease-out forwards;
+}
+
+@keyframes floating-honk-anim {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-100px) scale(1.5);
+  }
 }

@@ -1,0 +1,41 @@
+.settings-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.settings-modal {
+    background: #2a2a2a;
+    padding: 2rem;
+    border-radius: 12px;
+    min-width: 320px;
+    max-width: 95%;
+    border: 1px solid #444;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.settings-section {
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.settings-section h3 {
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+    color: #ddd;
+}
+
+.danger-zone {
+    border: 1px solid #7f1d1d;
+    padding: 1rem;
+    border-radius: 8px;
+    background: #450a0a;
+}

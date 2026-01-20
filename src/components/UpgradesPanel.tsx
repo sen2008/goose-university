@@ -2,6 +2,7 @@ import React from 'react';
 import { type GameState } from '../game/types';
 import { GAME_CONFIG } from '../config';
 import { getUpgradeCost } from '../game/engine';
+import { formatNumber } from '../utils/formatting';
 
 interface UpgradesPanelProps {
     state: GameState;
@@ -20,9 +21,13 @@ export const UpgradesPanel: React.FC<UpgradesPanelProps> = ({ state, onBuy }) =>
                     const isLocked = u.reqUnlockId && !state.unlocks[u.reqUnlockId];
 
                     if (isLocked) {
+                        // Find the missing requirement name
+                        const reqName = u.reqUnlockId
+                            ? Object.values(GAME_CONFIG.UNLOCKS).find(ul => ul.id === u.reqUnlockId)?.name
+                            : "Unknown";
                         return (
                             <div key={u.id} className="upgrade-card locked">
-                                <p>??? (Requires {GAME_CONFIG.UNLOCKS.COLLEGE.name})</p>
+                                <p>??? (Requires {reqName})</p>
                             </div>
                         );
                     }
@@ -39,7 +44,7 @@ export const UpgradesPanel: React.FC<UpgradesPanelProps> = ({ state, onBuy }) =>
                                 <span className="upgrade-desc">{u.description}</span>
                             </div>
                             <div className="upgrade-cost">
-                                {cost} Honks
+                                {formatNumber(cost)} Honks
                             </div>
                         </button>
                     );
