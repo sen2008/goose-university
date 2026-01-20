@@ -27,22 +27,49 @@ interface GameShellProps {
 export const GameShell: React.FC<GameShellProps> = ({ state, onBuy, onReset, onMascotClick, onBattle, onSelectCollege, onBuyLegacy, onAccredit, onEfficiencyAudit, onSelectRegion, selectedCostume }) => {
     const [showStats, setShowStats] = useState(false);
     const [showSettings, setShowSettings] = useState(false);
+    const [activeTab, setActiveTab] = useState<'progression' | 'world' | 'battle' | 'legacy'>('progression');
+
+    const tabs = [
+        { id: 'progression' as const, label: 'Progression' },
+        { id: 'world' as const, label: 'World Map' },
+        { id: 'battle' as const, label: 'Battles' },
+        { id: 'legacy' as const, label: 'Legacy' },
+    ];
 
     return (
         <div className="game-shell">
             <Header state={state} />
 
+            <nav className="tab-bar" role="tablist" aria-label="Game sections">
+                {tabs.map(tab => (
+                    <button
+                        key={tab.id}
+                        type="button"
+                        className={`tab-button ${activeTab === tab.id ? 'active' : ''}`}
+                        role="tab"
+                        aria-selected={activeTab === tab.id}
+                        onClick={() => setActiveTab(tab.id)}
+                    >
+                        {tab.label}
+                    </button>
+                ))}
+            </nav>
+
             <main className="game-content">
-                <div className="left-col">
-                    <Mascot onClick={onMascotClick} selectedCostume={selectedCostume} />
-                    <UpgradesPanel state={state} onBuy={onBuy} />
+                <div className="left-stack">
+                    <section className="panel panel-mascot">
+                        <Mascot onClick={onMascotClick} selectedCostume={selectedCostume} />
+                    </section>
+                    <section className="panel panel-upgrades">
+                        <UpgradesPanel state={state} onBuy={onBuy} />
+                    </section>
                 </div>
-                <div className="right-col">
-                    <ProgressionPanel state={state} />
-                    <WorldMap state={state} onSelectRegion={onSelectRegion} />
-                    <BattlePanel state={state} onBattle={onBattle} onSelectCollege={onSelectCollege} />
-                    <LegacyHall state={state} onBuyLegacy={onBuyLegacy} onAccredit={onAccredit} onEfficiencyAudit={onEfficiencyAudit} />
-                </div>
+                <section className="panel panel-tabbed">
+                    {activeTab === 'progression' && <ProgressionPanel state={state} />}
+                    {activeTab === 'world' && <WorldMap state={state} onSelectRegion={onSelectRegion} />}
+                    {activeTab === 'battle' && <BattlePanel state={state} onBattle={onBattle} onSelectCollege={onSelectCollege} />}
+                    {activeTab === 'legacy' && <LegacyHall state={state} onBuyLegacy={onBuyLegacy} onAccredit={onAccredit} onEfficiencyAudit={onEfficiencyAudit} />}
+                </section>
             </main>
 
             {showStats && <StatsPanel state={state} onClose={() => setShowStats(false)} />}

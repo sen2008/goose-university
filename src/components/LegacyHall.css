@@ -1,43 +1,43 @@
 .legacy-hall {
-    background: #1a1a1a;
-    padding: 1.5rem;
-    border-radius: 12px;
-    border: 1px solid #333;
-    margin-top: 2rem;
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
+    border: none;
+    margin-top: 0;
 }
 
 .prestige-section {
     text-align: center;
-    border-bottom: 1px solid #333;
-    padding-bottom: 1.5rem;
-    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
 }
 
 .prestige-section h3 {
-    color: #ffd700;
+    color: var(--accent);
     margin-top: 0;
 }
 
 .prestige-section p {
-    color: #888;
-    font-size: 0.9rem;
+    color: var(--muted);
+    font-size: 0.8rem;
 }
 
 .accreditation-info {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
-    margin-top: 1rem;
+    gap: 0.75rem;
+    margin-top: 0.75rem;
 }
 
 .info-item .label {
-    color: #aaa;
+    color: var(--muted);
     margin-right: 0.5rem;
 }
 
 .info-item .value.golden {
-    color: #ffd700;
+    color: var(--accent);
     font-weight: bold;
     font-size: 1.1rem;
 }
@@ -46,23 +46,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
-    background: rgba(255, 215, 0, 0.1);
-    padding: 1rem;
+    gap: 0.35rem;
+    background: rgba(240, 180, 41, 0.12);
+    padding: 0.75rem;
     border-radius: 8px;
-    border: 1px solid rgba(255, 215, 0, 0.2);
+    border: 1px solid rgba(240, 180, 41, 0.25);
 }
 
 .gain-text {
-    color: #ffd700;
+    color: var(--accent);
     font-weight: bold;
 }
 
 .accredit-btn {
-    background: #ffd700;
-    color: #000;
+    background: var(--accent);
+    color: #0b0f14;
     font-weight: bold;
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
@@ -75,38 +75,38 @@
 
 .requirement-text {
     font-size: 0.8rem;
-    color: #666;
+    color: var(--muted-2);
     font-style: italic;
 }
 
 .legacy-upgrades h4 {
     margin-top: 0;
-    color: #aaa;
-    margin-bottom: 1rem;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
 }
 
 .upgrade-card.legacy {
-    background: #222;
-    border: 1px solid #444;
+    background: var(--surface);
+    border: 1px solid var(--border);
 }
 
 .upgrade-card.legacy .upgrade-name {
-    color: #ffd700;
+    color: var(--accent);
 }
 
 .buy-btn {
-    background: #444;
-    color: #ccc;
+    background: var(--surface-2);
+    color: var(--muted);
     border: none;
-    padding: 0.5rem 1rem;
+    padding: 0.4rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.2s;
 }
 
 .buy-btn:hover:not(:disabled) {
-    background: #ffd700;
-    color: #000;
+    background: var(--accent);
+    color: #0b0f14;
 }
 
 .buy-btn:disabled {
@@ -115,33 +115,33 @@
 }
 
 .admin-office {
-    margin-top: 2rem;
-    padding-top: 2rem;
-    border-top: 1px dashed #444;
+    margin-top: 1.25rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed var(--border);
 }
 
 .admin-office h4 {
-    color: #ff4d4d;
+    color: #ff6b6b;
     margin-top: 0;
 }
 
 .admin-office p {
-    font-size: 0.85rem;
-    color: #888;
+    font-size: 0.75rem;
+    color: var(--muted);
 }
 
 .friction-stats {
-    background: #000;
-    padding: 1rem;
+    background: var(--surface-3);
+    padding: 0.75rem;
     border-radius: 8px;
-    margin: 1rem 0;
-    border: 1px solid #222;
+    margin: 0.75rem 0;
+    border: 1px solid var(--border);
 }
 
 .friction-stats .stat {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
+    font-size: 0.75rem;
     padding: 0.25rem 0;
 }
 
@@ -151,28 +151,28 @@
 }
 
 .audit-action {
-    background: linear-gradient(135deg, #1a1a1a, #2a1a1a);
-    padding: 1rem;
+    background: linear-gradient(135deg, rgba(20, 27, 35, 0.9), rgba(45, 20, 20, 0.9));
+    padding: 0.75rem;
     border-radius: 8px;
-    border: 1px solid #4d0000;
+    border: 1px solid rgba(255, 77, 77, 0.4);
 }
 
 .audit-action h5 {
-    color: #ff4d4d;
+    color: #ff6b6b;
     margin: 0 0 0.5rem 0;
 }
 
 .audit-desc {
-    font-size: 0.75rem !important;
-    margin-bottom: 1rem;
+    font-size: 0.7rem !important;
+    margin-bottom: 0.75rem;
 }
 
 .audit-btn {
     width: 100%;
-    background: #4d0000;
-    color: #ff9999;
-    border: 1px solid #ff4d4d;
-    padding: 0.75rem;
+    background: #3a0b0b;
+    color: #ffb5b5;
+    border: 1px solid #ff6b6b;
+    padding: 0.6rem;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
@@ -180,13 +180,13 @@
 }
 
 .audit-btn:hover:not(:disabled) {
-    background: #ff4d4d;
+    background: #ff6b6b;
     color: #fff;
-    box-shadow: 0 0 15px rgba(255, 77, 77, 0.4);
+    box-shadow: 0 0 15px rgba(255, 107, 107, 0.4);
 }
 
 .audit-btn:disabled {
     opacity: 0.3;
     cursor: not-allowed;
-    border-color: #333;
+    border-color: var(--border);
 }
